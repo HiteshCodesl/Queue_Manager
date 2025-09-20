@@ -9,8 +9,8 @@ export async function POST(request: NextRequest){
 
      const managerId = session.user.id;
     try{
-     const name = await request.json();
-      
+     const {name} = await request.json();
+      console.log(name, managerId, "name, managerId")
      const queue = await prismaClient.queue.create({
         data:{
             name, managerId

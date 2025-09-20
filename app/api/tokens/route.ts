@@ -1,17 +1,20 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import prismaClient from "@/app/config/prisma";
 
+//call this method when creating token with input and button
 export async function POST(request: NextRequest){
   
     const {queueId, label} = await request.json();
 
     try{
-    await prismaClient.queue.findUnique({
+   const queue =  await prismaClient.queue.findUnique({
         where: {id: queueId}
     })
-
+ 
+    if(!queue){
+        return NextResponse.json('queue not found cannot create token')
+    }
+    
     const maxPosition = await prismaClient.token.aggregate({
         where: {
             queueId ,

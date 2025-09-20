@@ -1,21 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import prismaClient from "@/app/config/prisma";
 
-interface Params {
-    params: {
-        id: string
-    }
-}
-
-export async function POST(request: NextRequest, {params}: Params){
-    const direction = await request.json();
+export async function POST(request: NextRequest, {params}:{params: {moveId: string}}){
+    const {direction} = await request.json();
 
     if(!['up', 'down'].includes(direction)) return NextResponse.json('invalid direction');
-
+    console.log("moveID", params.moveId)
     try{
     const token = await prismaClient.token.findUnique({
         where: {
-            id: params.id
+            id: params.moveId
         }
     })
 
