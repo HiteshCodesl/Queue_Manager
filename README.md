@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Queue Manager ###
 
-## Getting Started
+### Summary
+A simple Queue Management web application built with Next.js (App Router), Prisma, PostgreSQL, and NextAuth (Credentials provider).
+Managers can create named queues, add tokens (people), reorder tokens, assign the next token for service, cancel/serve tokens, and view analytics (average wait time, last-7-day trends, current queue length).
 
-First, run the development server:
+### Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+✅ Manager register & login (NextAuth Credentials)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+✅ Create, list and delete named queues
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+✅ Add tokens (tickets) to a selected queue — auto-positioned at the end
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+✅ View tokens ordered by position with status: waiting, assigned, served, cancelled
 
-## Learn More
+✅ Move tokens up / down (transactional swap)
 
-To learn more about Next.js, take a look at the following resources:
+✅ Assign top waiting token for service (single click)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+✅ Cancel token (mark cancelled and reindex waiting tokens)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+✅ Serve token (mark served and reindex)
 
-## Deploy on Vercel
+✅ Analytics endpoint: average wait time (seconds),cancelled token , current waiting count, recent served tokens
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ Minimal, unstyled frontend (React + NextAuth) — ready for your styling
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Login
+![Landing page](/public/Landing.png)
+
+### Queues list
+![DashBoard list](/pulic/DashBoard.png)
+
+### Queue detail
+![Login detail](/public/Login.png)
+
+### Analytics
+![Signup](/public/signup.png)
+
+### Tech stack
+
+Next.js (App Router + TypeScript)
+
+Prisma ORM
+
+PostgreSQL (production) / SQLite (optional for quick demos)
+
+NextAuth (Credentials provider) for authentication
+
+bcryptjs for password hashing
+
+Fetch/axios on client for API calls
+
+
+### Environment variables
+
+Create a .env in project root with:
+
+DATABASE_URL="postgresql://USER:PASS@HOST:PORT/DBNAME"
+NEXTAUTH_SECRET="a_long_random_secret"
+# optional: for local SQLite quick demo
+# DATABASE_URL="file:./dev.db"

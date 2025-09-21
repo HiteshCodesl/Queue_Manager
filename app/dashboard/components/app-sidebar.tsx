@@ -17,14 +17,18 @@ import axios from "axios"
 import { Queue, QueueContext } from "@/app/config/queueContext"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
+import Link from "next/link"
 
 export function AppSidebar() { 
     const [name,setName] = useState('');
-
     const context = useContext(QueueContext);
     if(!context) return null;
     const {queues, setQueues, selectedQueueId, setSelectedQueueId} = context;
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const { data: session, status } = useSession();
 
     const handleClick = async() =>{
       if(!name){
@@ -77,7 +81,9 @@ export function AppSidebar() {
                  placeholder="Enter a Queue Name"
                  />
                 <Button onClick={handleClick}
-                 className="btn-primary mx-5 font-inter ">Create a Queue {loading && <Loader2  className="inline-block "/>}</Button>
+                 className="btn-primary mx-5 font-inter ">Create a Queue {loading && <Loader2  className="inline-block "/>}</Button> 
+                 
+
                </div> 
             </SidebarMenu>
           </SidebarGroupContent>

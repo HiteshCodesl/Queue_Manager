@@ -67,6 +67,7 @@ export function AddQueueToken() {
     
   const moveHandler = async(id: string, direction: 'up' | 'down') =>{
     try{ 
+    toast(`Moving the Token ${direction}`)
     const response = await axios.post(`/api/tokens/move/${id}`, {direction})
      
      if(response.data.ok && response.data.tokens){

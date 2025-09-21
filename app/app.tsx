@@ -17,11 +17,14 @@ import {
   Linkedin,
   ClipboardList
 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {data: session} = useSession();
+  const href = session?.user ? "/dashboard" : "/login";
 
   const features = [
     {
@@ -188,6 +191,12 @@ function App() {
               <a href="#testimonials" className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors duration-200">Testimonials</a>
               <a href="#pricing" className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors duration-200">Pricing</a>
             </div>
+                <Link href={'/login'} >
+            <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 md:px-18 py-4  rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center space-x-2">
+                <span>Signin</span>
+                <ArrowRight className="w-5 h-5" />
+            </button>
+            </Link> 
           </div>
         )}
       </nav>
@@ -231,7 +240,7 @@ function App() {
               Transform waiting into a seamless experience for your business and customers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-             <Link href={'/dashboard'}>
+           <Link href={href} >
             <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 md:px-18 py-4  rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center space-x-2">
                 <span>Get Started</span>
                 <ArrowRight className="w-5 h-5" />

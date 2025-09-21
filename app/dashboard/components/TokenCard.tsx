@@ -4,6 +4,7 @@ import { Token } from "./AddQueueToken";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import moment from 'moment'
+import { toast } from "sonner";
 
 export function TokenCard({
   token,
@@ -19,6 +20,7 @@ export function TokenCard({
    
   const cancelToken = async(id: string) =>{
     console.log('tokenId', id)
+    toast('Cancelling the token')
      const response = await axios.post(`/api/tokens/remove/${id}`); 
 
      if(response){
