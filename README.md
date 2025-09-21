@@ -1,4 +1,4 @@
-### Queue Manager ###
+# Queue Manager
 
 ### Summary
 A simple Queue Management web application built with Next.js (App Router), Prisma, PostgreSQL, and NextAuth (Credentials provider).
@@ -26,16 +26,16 @@ Managers can create named queues, add tokens (people), reorder tokens, assign th
 
 ✅ Minimal, unstyled frontend (React + NextAuth) — ready for your styling
 
-### Login
+### Landing Page
 ![Landing page](/public/LandingPage.png)
 
-### Queues list
+### Dashboard
 ![DashBoard list](/public/DashBoard.png)
 
-### Queue detail
+### Login
 ![Login detail](/public/Login.png)
 
-### Analytics
+### Signup
 ![Signup](/public/signup.png)
 
 ### Tech stack
@@ -55,9 +55,7 @@ Fetch/axios on client for API calls
 
 ### Environment variables
 
-Create a .env in project root with:
+Create a .env in project root with
 
 DATABASE_URL="postgresql://USER:PASS@HOST:PORT/DBNAME"
 NEXTAUTH_SECRET="a_long_random_secret"
-# optional: for local SQLite quick demo
-# DATABASE_URL="file:./dev.db"
