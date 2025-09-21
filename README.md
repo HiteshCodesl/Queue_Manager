@@ -40,17 +40,17 @@ Managers can create named queues, add tokens (people), reorder tokens, assign th
 
 ### Tech stack
 
-Next.js (App Router + TypeScript)
+Next.js (TypeScript)
 
 Prisma ORM
 
-PostgreSQL (production) / SQLite (optional for quick demos)
+PostgreSQL
 
 NextAuth (Credentials provider) for authentication
 
 bcryptjs for password hashing
 
-Fetch/axios on client for API calls
+axios on client for API calls
 
 
 ### Environment variables
