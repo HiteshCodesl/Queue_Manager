@@ -27,10 +27,10 @@ Managers can create named queues, add tokens (people), reorder tokens, assign th
 ✅ Minimal, unstyled frontend (React + NextAuth) — ready for your styling
 
 ### Login
-![Landing page](/public/Landing.png)
+![Landing page](/public/LandingPage.png)
 
 ### Queues list
-![DashBoard list](/pulic/DashBoard.png)
+![DashBoard list](/public/DashBoard.png)
 
 ### Queue detail
 ![Login detail](/public/Login.png)
