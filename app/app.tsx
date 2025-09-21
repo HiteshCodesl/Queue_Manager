@@ -187,11 +187,6 @@ function App() {
               <a href="#how-it-works" className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors duration-200">How it Works</a>
               <a href="#testimonials" className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors duration-200">Testimonials</a>
               <a href="#pricing" className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors duration-200">Pricing</a>
-              <Link href={'/dashboard'}>
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-lg mt-3 hover:from-blue-600 hover:to-purple-700 transition-all duration-200">
-                Get Started
-              </button>
-              </Link> 
             </div>
           </div>
         )}
@@ -225,10 +220,10 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto relative z-10">
             <h1 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight text-gray-900">
-              Manage Queues
+              Manage Queues Effortlessly
               <br />
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                Effortlessly
+                with tokens system
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -240,8 +235,8 @@ function App() {
             <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 md:px-18 py-4  rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center space-x-2">
                 <span>Get Started</span>
                 <ArrowRight className="w-5 h-5" />
-              </button>
-              </Link> 
+            </button>
+            </Link> 
             </div>
             <div className="mt-8 text-sm text-gray-500">
               <p>Trusted by 1,000+ businesses worldwide • No setup fees • Cancel anytime</p>

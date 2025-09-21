@@ -1,23 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import prismaClient from "@/app/config/prisma";
 
-interface Params {
-    params: {
-        queueId: string
-    }
-}
-export async function POST(request: NextRequest, {params}: Params){
-    
+export async function POST(request: NextRequest, context: {params: {queueId: string}}){
+    const {queueId} = context.params;
     try{
     await prismaClient.queue.findUnique({
         where: {
-            id: params.queueId
+            id: queueId
         }
     })
 
     const top = await prismaClient.token.findFirst({
         where: {
-            queueId: params.queueId,
+            queueId: queueId,
             status: 'waiting'
         },
         orderBy: {
@@ -36,8 +31,14 @@ export async function POST(request: NextRequest, {params}: Params){
             assignedAt: new Date()
         }
     })
+
+    const tokens = await prismaClient.token.findMany({
+        where: {queueId},
+        orderBy: {position: 'asc'}
+    })
+
+    return NextResponse.json({status: 200, body: {ok: true, token: updated, tokens}});
     
-    return NextResponse.json(updated);
    }catch(error){
     console.log(error)
     return NextResponse.json(error);

@@ -1,27 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
 import prismaClient from "@/app/config/prisma"
 
-interface Params {
-    params : {
-        id: string
-    }
-}
-
-export async function POST(request: NextRequest, {params}: Params){
+export async function POST(request: NextRequest,
+     context : {params: {serveId: string }}){
+    const {serveId} = context.params;
     try{
+        console.log("id",serveId)
     const token = await prismaClient?.token.findUnique({
         where: {
-            id: params.id
+            id: serveId
         }
     })
 
-    const queue = await prismaClient.queue.findUnique({ where: { id: token?.queueId 
-       } 
-    });
-
-    await prismaClient.token.update({
+    const updated = await prismaClient.token.update({
         where: {
-            id: token?.id
+            id: serveId
         },
         data: {
             status: 'served',
@@ -29,28 +22,15 @@ export async function POST(request: NextRequest, {params}: Params){
         }
     })
 
-    const waiting = await prismaClient.token.findMany({
+    const tokens = await prismaClient.token.findMany({
         where: {
             queueId: token?.queueId,
-            status: 'waiting'
         },
         orderBy: {
             position: 'asc'
         }
     })
-
-    const otherTokensPosition = waiting.map((token, index) => prismaClient.token.update({
-        where: {
-            id: token.id
-        },
-        data: {
-            position: index + 1
-        }
-    }))
-
-    if(otherTokensPosition.length) await prismaClient.$transaction(otherTokensPosition)
-
-    return NextResponse.json('token successfully served')
+    return NextResponse.json({ok: true, token: updated, tokens })
     }catch(error){
     console.log(error)
     return NextResponse.json(error);

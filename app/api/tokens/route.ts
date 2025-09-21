@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prismaClient from "@/app/config/prisma";
 
-//call this method when creating token with input and button
+
 export async function POST(request: NextRequest){
   
     const {queueId, label} = await request.json();

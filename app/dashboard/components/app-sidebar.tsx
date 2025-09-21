@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { Queue, QueueContext } from "@/app/config/queueContext"
+import { Loader2 } from "lucide-react"
+import { toast } from "sonner"
 
 export function AppSidebar() { 
     const [name,setName] = useState('');
@@ -22,8 +24,14 @@ export function AppSidebar() {
     const context = useContext(QueueContext);
     if(!context) return null;
     const {queues, setQueues, selectedQueueId, setSelectedQueueId} = context;
+    const [loading, setLoading] = useState(false);
 
     const handleClick = async() =>{
+      if(!name){
+        return toast('Enter a Queue name first')
+      }
+      setLoading(true);
+      toast('Queue Adding')
        const response = await axios.post('/api/queues', {name});
 
        if(response){
@@ -31,6 +39,7 @@ export function AppSidebar() {
           console.log(newQueue);
           setQueues([newQueue, ...queues ]);
           setName('');
+          setLoading(false);
        }
     }
 
@@ -44,7 +53,8 @@ export function AppSidebar() {
    }, [setQueues])
 
   return (
-    <Sidebar>
+   
+      <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -58,6 +68,7 @@ export function AppSidebar() {
                     </div>
                   ))}
                </div>
+                
                <div className="flex flex-col gap-3 mx-3">
                 <Input
                 className="text-lg font-inter shadow-lg"
@@ -66,12 +77,13 @@ export function AppSidebar() {
                  placeholder="Enter a Queue Name"
                  />
                 <Button onClick={handleClick}
-                 className="btn-primary mx-5 font-inter ">Create a Queue</Button>
-               </div>
+                 className="btn-primary mx-5 font-inter ">Create a Queue {loading && <Loader2  className="inline-block "/>}</Button>
+               </div> 
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
+    
   )
 }

@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import prismaClient from "@/app/config/prisma";
 
-export async function POST(request: NextRequest, {params}:{params: {moveId: string}}){
+export async function POST(
+    request: NextRequest, 
+    context: {params: {moveId: string}}){
+
     const {direction} = await request.json();
 
+    const {moveId} = context.params;
     if(!['up', 'down'].includes(direction)) return NextResponse.json('invalid direction');
-    console.log("moveID", params.moveId)
+
     try{
     const token = await prismaClient.token.findUnique({
         where: {
-            id: params.moveId
+            id: moveId
         }
     })
-
-    const queue = await prismaClient.queue.findUnique({ where: { id: token?.queueId } });
-
-
-    if(token?.status !== 'waiting') return NextResponse.json({ error: "Only waiting tokens can be moved" }, { status: 400 });
+    if (!token) return NextResponse.json({ error: "Token not found" }, { status: 404 });
 
     const currentPosition = token.position;
 
@@ -28,7 +28,6 @@ export async function POST(request: NextRequest, {params}:{params: {moveId: stri
         where: {
             queueId: token.queueId,
             position: targetPosition,
-            status: 'waiting'
         }
     })
 
@@ -55,7 +54,12 @@ export async function POST(request: NextRequest, {params}:{params: {moveId: stri
         })
     ])
 
-    return NextResponse.json({ok: true});
+    const tokens = await prismaClient.token.findMany({
+        where: {queueId: token.queueId},
+        orderBy: {position: 'asc'}
+    })
+
+    return NextResponse.json({ok: true, tokens});
     }catch(error){
     console.log(error)
     return NextResponse.json(error);
