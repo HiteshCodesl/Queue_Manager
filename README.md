@@ -2,7 +2,7 @@
 
 ### Summary
 A simple Queue Management web application built with Next.js (App Router), Prisma, PostgreSQL, and NextAuth (Credentials provider).
-Managers can create named queues, add tokens (people), reorder tokens, assign the next token for service, cancel/serve tokens, and view analytics (average wait time, last-7-day trends, current queue length).
+Managers can create named queues, add tokens (people), reorder tokens, assign the next token for service, cancel/serve tokens, and view analytics (average wait time, current queue length).
 
 ### Features
 
